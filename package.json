@@ -1,0 +1,23 @@
+{
+  "name": "youtube-player",
+  "version": "1.0.0",
+  "description": "Player for Youtube Videos",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vmunozre/youtube-player.git"
+  },
+  "author": "Victor Reyes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vmunozre/youtube-player/issues"
+  },
+  "homepage": "https://github.com/vmunozre/youtube-player#readme",
+  "devDependencies": {
+    "electron-prebuilt": "^1.4.13"
+  }
+}
