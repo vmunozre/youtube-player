@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<title>W3.CSS</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: "Montserrat", sans-serif
+    }
+    
+    .w3-row-padding img {
+        margin-bottom: 12px
+    }
+    /* Set the width of the sidebar to 120px */
+    
+    .w3-sidebar {
+        width: 120px;
+        background: #222;
+    }
+    /* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+    
+    #main {
+        margin-left: 120px
+    }
+    /* Remove margins from "page content" on small screens */
+    
+    @media only screen and (max-width: 600px) {
+        #main {
+            margin-left: 0
+        }
+    }
+    
+    .indigo-dark {
+        color: #fff !important;
+        background-color: #20295b !important
+    }
+    
+    .indigo {
+        color: #fff !important;
+        background-color: #2d397f !important
+    }
+    
+    .indigo-light {
+        color: #fff !important;
+        background-color: #334191 !important
+    }
+    
+    .indigo-light-x2 {
+        color: #fff !important;
+        background-color: #6271c8 !important
+    }
+    
+    .hover-indigo-dark:hover {
+        color: #fff !important;
+        background-color: #20295b !important
+    }
+    
+    .hover-indigo:hover {
+        color: #fff !important;
+        background-color: #2d397f !important
+    }
+    
+    .btn-floating {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        cursor: pointer;
+        width: 2.5em;
+        height: 2.5em;
+    }
+    
+    .card-set {
+        float: left;
+        max-width: 20em;
+        margin: 0.5em;
+    }
+    
+    .card-container {
+        display: inline;
+    }
+    
+    .btn-card {
+        width:33.3% !important; 
+    }
+    
+    .btn-card-side {
+        width:30% !important;
+    }
+    
+    .btn-card-mid {
+        width: 40% !important;
+    }
+</style>
+
+<body class="indigo-dark">
+
+    <!-- Menu -->
+    <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center indigo-light">
+        <!-- Logo Image -->
+        <img src="/media/headphones.png" style="width:75%">
+        <a href="#" class="w3-bar-item w3-button w3-padding-large indigo-dark hover-indigo-dark">
+            <i class="fa fa-home w3-xxlarge"></i>
+            <p>HOME</p>
+        </a>
+        <a href="#about" class="w3-bar-item w3-button w3-padding-large hover-indigo-dark">
+            <i class="fa fa-star w3-xxlarge"></i>
+            <p>Favorites</p>
+        </a>
+        <a href="#photos" class="w3-bar-item w3-button w3-padding-large hover-indigo-dark">
+            <i class="fa fa-info-circle w3-xxlarge"></i>
+            <p>About</p>
+        </a>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+        <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+            <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
+            <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
+            <a href="#photos" class="w3-bar-item w3-button" style="width:25% !important">PHOTOS</a>
+        </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="w3-padding" id="main">
+        <!-- Header/Home -->
+        <header class="w3-container w3-center indigo-light" id="home">
+            <h1>Youtube Player</h1>
+        </header>
+
+        <!-- About Section -->
+        <div class="w3-content w3-justify w3-text-gre y w3-padding-64 card-container" id="about">
+            <div class="w3-card-4 indigo-light-x2 card-set">
+                <div class="w3-container w3-center indigo-light">
+                    <p>NightCore</p>
+                </div>
+                <a><img src="http://img.youtube.com/vi/61xXKbpWf3A/0.jpg" alt="Norway" style="width:100%;"></a>
+                <div class="w3-bar">
+                    <button class="w3-bar-item w3-button btn-card-side"><i class="fa fa-star"></i></button>
+                    <button class="w3-bar-item w3-button w3-green btn-card-mid"><i class="fa fa-play w3-large"></i></button>
+                    <button class="w3-bar-item w3-button btn-card-side"><i class="fa fa-trash"></i></button>
+                </div>
+            </div>
+            <div class="w3-card-4 indigo-light-x2 card-set">
+                <div class="w3-container w3-center">
+                    <p>NightCore</p>
+                </div>
+                <a><img src="http://img.youtube.com/vi/61xXKbpWf3A/0.jpg" alt="Norway" style="width:100%;"></a>
+                <div class="w3-bar">
+                    <button class="w3-bar-item w3-button btn-card-side"><i class="fa fa-star"></i></button>
+                    <button class="w3-bar-item w3-button w3-green btn-card-mid"><i class="fa fa-play w3-large"></i></button>
+                    <button class="w3-bar-item w3-button btn-card-side"><i class="fa fa-trash"></i></button>
+                </div>
+            </div>
+            
+
+
+            <!-- End Contact Section -->
+        </div>
+        <!-- Floating button -->
+        <button class="w3-button w3-xlarge w3-card-4 w3-circle btn-floating indigo-light-x2">+</button>
+        <!-- END PAGE CONTENT -->
+    </div>
+
+</body>
+
+</html>
