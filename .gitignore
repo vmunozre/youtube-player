@@ -2,7 +2,9 @@
 bower_components
 node_modules
 dist
+interfaz
 
 #files
 *.tgz
 *.log
+adapt.html

@@ -1,0 +1,103 @@
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Montserrat", sans-serif
+}
+
+.w3-row-padding img {
+    margin-bottom: 12px
+}
+/* Set the width of the sidebar to 120px */
+
+.w3-sidebar {
+    width: 120px;
+    background: #222;
+}
+/* Add a left margin to the "page content" that matches the width of the sidebar (120px) */
+
+#main {
+    margin-left: 120px
+}
+/* Remove margins from "page content" on small screens */
+
+@media only screen and (max-width: 600px) {
+    #main {
+        margin-left: 0
+    }
+}
+
+.indigo-dark {
+    color: #fff !important;
+    background-color: #20295b !important
+}
+
+.indigo {
+    color: #fff !important;
+    background-color: #2d397f !important
+}
+
+.indigo-light {
+    color: #fff !important;
+    background-color: #334191 !important
+}
+
+.indigo-light-x2 {
+    color: #fff !important;
+    background-color: #6271c8 !important
+}
+
+.hover-indigo-dark:hover {
+    color: #fff !important;
+    background-color: #20295b !important
+}
+
+.hover-indigo:hover {
+    color: #fff !important;
+    background-color: #2d397f !important
+}
+
+.btn-floating {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    cursor: pointer;
+    width: 2.5em;
+    height: 2.5em;
+}
+
+.card-set {
+    float: left;
+    max-width: 19.5em;
+    margin: 0.5em;
+}
+
+.card-container {
+    display: inline;
+}
+
+.btn-card {
+    width: 33.3% !important;
+}
+
+.btn-card-side {
+    width: 30% !important;
+}
+
+.btn-card-mid {
+    width: 40% !important;
+}
+
+.card-player {
+    max-width: 40em;
+    margin-top: 1.5em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card-player-container {
+    padding: 1em;
+}

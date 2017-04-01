@@ -1,26 +1,251 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Youtube Player</h1>
-    <input type="text" id="inp-url-playlist"/>
-    <button id="btn-load">Cargar</button>
-    <div id="youtube-player"></div>
+<title>Youtube Player</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="./css/w3.css">
+<link rel="stylesheet" href="./css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 
+<script>
+    function open_player() {
+        list_section.style.display = 'none';
+        favorites_section.style.display = 'none';
+        about_section.style.display = 'none';
+        player_section.style.display = 'block';
+        btn_open_about.className = 'w3-bar-item w3-button w3-padding-large hover-indigo-dark';
+        btn_open_fav.className = 'w3-bar-item w3-button w3-padding-large hover-indigo-dark';
+        btn_open_player.className = 'w3-bar-item w3-button w3-padding-large indigo-dark hover-indigo-dark';
+        btn_open_list.className = 'w3-bar-item w3-button w3-padding-large hover-indigo-dark';
+    }
+
+    function open_list() {
+        list_section.style.display = 'block';
+        favorites_section.style.display = 'none';
+        about_section.style.display = 'none';
+        player_section.style.display = 'none';
+        btn_open_about.className = 'w3-bar-item w3-button w3-padding-large hover-indigo-dark';
+        btn_open_fav.className = 'w3-bar-item w3-button w3-padding-large hover-indigo-dark';
+        btn_open_player.className = 'w3-bar-item w3-button w3-padding-large hover-indigo-dark';
+        btn_open_list.className = 'w3-bar-item w3-button w3-padding-large indigo-dark hover-indigo-dark';
+        loadPlaylists();
+    }
+
+    function open_favorites() {
+        list_section.style.display = 'none';
+        favorites_section.style.display = 'block';
+        about_section.style.display = 'none';
+        player_section.style.display = 'none';
+        btn_open_about.className = 'w3-bar-item w3-button w3-padding-large hover-indigo-dark';
+        btn_open_fav.className = 'w3-bar-item w3-button w3-padding-large indigo-dark hover-indigo-dark';
+        btn_open_player.className = 'w3-bar-item w3-button w3-padding-large hover-indigo-dark';
+        btn_open_list.className = 'w3-bar-item w3-button w3-padding-large hover-indigo-dark';
+        loadFavorites();
+    }
+
+    function open_about() {
+        list_section.style.display = 'none';
+        favorites_section.style.display = 'none';
+        about_section.style.display = 'block';
+        player_section.style.display = 'none';
+        btn_open_about.className = 'w3-bar-item w3-button w3-padding-large indigo-dark hover-indigo-dark';
+        btn_open_fav.className = 'w3-bar-item w3-button w3-padding-large hover-indigo-dark';
+        btn_open_player.className = 'w3-bar-item w3-button w3-padding-large hover-indigo-dark';
+        btn_open_list.className = 'w3-bar-item w3-button w3-padding-large hover-indigo-dark';
+    }
+</script>
+
+<body class="indigo-dark">
+    <template id="item-list-template">
+      <div class="w3-card-4 indigo-light-x2 card-set">
+          <div class="w3-container w3-center indigo-light">
+              <p id="item-title">NightCore</p>
+          </div>
+          <a><img src="http://img.youtube.com/vi/61xXKbpWf3A/0.jpg" alt="" style="width:100%;"></a>
+          <div class="w3-bar">
+              <button id="item-btn-fav" class="w3-bar-item w3-button btn-card-side"><i id="item-star" class="fa fa-star-o"></i></button>
+              <button id="item-btn-play" class="w3-bar-item w3-button w3-green btn-card-mid"><i class="fa fa-play w3-large"></i></button>
+              <button id="item-btn-remove" class="w3-bar-item w3-button btn-card-side"><i class="fa fa-trash"></i></button>
+          </div>
+      </div>
+    </template>
+    <!-- Menu -->
+    <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center indigo-light">
+        <!-- Logo Image -->
+        <a id="btn-open-player" onclick="open_player()" id="btn-player" href="#player" class="w3-bar-item w3-button w3-padding-large hover-indigo-dark">
+            <i class="fa fa-play w3-xxlarge"></i>
+            <p>PLAYER</p>
+        </a>
+        <a id="btn-open-list" onclick="open_list()" id="btn-list" href="#" class="w3-bar-item w3-button w3-padding-large indigo-dark hover-indigo-dark">
+            <i class="fa fa-list w3-xxlarge"></i>
+            <p>LIST</p>
+        </a>
+        <a id="btn-open-fav" onclick="open_favorites()" id="btn-fav" href="#favorites" class="w3-bar-item w3-button w3-padding-large hover-indigo-dark">
+            <i class="fa fa-star w3-xxlarge"></i>
+            <p>FAVORITES</p>
+        </a>
+        <a id="btn-open-about" onclick="open_about()" id="btn-about" href="#about" class="w3-bar-item w3-button w3-padding-large hover-indigo-dark">
+            <i class="fa fa-info-circle w3-xxlarge"></i>
+            <p>ABOUT</p>
+        </a>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
+        <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
+            <a href="#player" class="w3-bar-item w3-button" style="width:25% !important">PLAYER</a>
+            <a href="#" class="w3-bar-item w3-button" style="width:25% !important">LIST</a>
+            <a href="#favorites" class="w3-bar-item w3-button" style="width:25% !important">FAVORITES</a>
+            <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
+        </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="w3-padding" id="main">
+        <!-- Header/Home -->
+        <div id="list-section">
+            <header class="w3-container w3-center indigo-light">
+                <h1>Playlists</h1>
+            </header>
+
+            <!-- List Section -->
+            <div class="w3-content w3-justify w3-text-gre y w3-padding-64 card-container" id="list-all-containter">
+                <div class="w3-card-4 indigo-light-x2 card-set">
+                    <div class="w3-container w3-center indigo-light">
+                        <p>NightCore</p>
+                    </div>
+                    <a><img src="http://img.youtube.com/vi/61xXKbpWf3A/0.jpg" alt="Norway" style="width:100%;"></a>
+                    <div class="w3-bar">
+                        <button class="w3-bar-item w3-button btn-card-side"><i class="fa fa-star"></i></button>
+                        <button class="w3-bar-item w3-button w3-green btn-card-mid"><i class="fa fa-play w3-large"></i></button>
+                        <button class="w3-bar-item w3-button btn-card-side"><i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+                <div class="w3-card-4 indigo-light-x2 card-set">
+                    <div class="w3-container w3-center">
+                        <p>NightCore</p>
+                    </div>
+                    <a><img src="http://img.youtube.com/vi/61xXKbpWf3A/0.jpg" alt="Norway" style="width:100%;"></a>
+                    <div class="w3-bar">
+                        <button class="w3-bar-item w3-button btn-card-side"><i class="fa fa-star"></i></button>
+                        <button class="w3-bar-item w3-button w3-green btn-card-mid"><i class="fa fa-play w3-large"></i></button>
+                        <button class="w3-bar-item w3-button btn-card-side"><i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+
+                <!-- End Contact Section -->
+            </div>
+        </div>
+
+        <!-- fav -->
+        <div id="favorites-section" hidden>
+            <header class="w3-container w3-center indigo-light">
+                <h1>Favorites</h1>
+            </header>
+
+            <!-- About Section -->
+            <div class="w3-content w3-justify w3-text-gre y w3-padding-64 card-container" id="favorites-all-containter">
+                <div class="w3-card-4 indigo-light-x2 card-set">
+                    <div class="w3-container w3-center indigo-light">
+                        <p>NightCore</p>
+                    </div>
+                    <a><img src="http://img.youtube.com/vi/61xXKbpWf3A/0.jpg" alt="Norway" style="width:100%;"></a>
+                    <div class="w3-bar">
+                        <button class="w3-bar-item w3-button btn-card-side"><i class="fa fa-star"></i></button>
+                        <button class="w3-bar-item w3-button w3-green btn-card-mid"><i class="fa fa-play w3-large"></i></button>
+                        <button class="w3-bar-item w3-button btn-card-side"><i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+                <div class="w3-card-4 indigo-light-x2 card-set">
+                    <div class="w3-container w3-center">
+                        <p>NightCore</p>
+                    </div>
+                    <a><img src="http://img.youtube.com/vi/61xXKbpWf3A/0.jpg" alt="Norway" style="width:100%;"></a>
+                    <div class="w3-bar">
+                        <button class="w3-bar-item w3-button btn-card-side"><i class="fa fa-star"></i></button>
+                        <button class="w3-bar-item w3-button w3-green btn-card-mid"><i class="fa fa-play w3-large"></i></button>
+                        <button class="w3-bar-item w3-button btn-card-side"><i class="fa fa-trash"></i></button>
+                    </div>
+                </div>
+
+                <!-- End Contact Section -->
+            </div>
+        </div>
+
+        <!-- Player section -->
+        <div id="player-section" hidden>
+            <header class="w3-container w3-center indigo-light">
+                <h1>Player</h1>
+            </header>
+            <div class="w3-card-4 indigo-light-x2 card-player">
+                <div class="w3-container w3-center">
+                    <h2 id="title_player">Future Title</h2>
+                </div>
+                <div class="w3-panel indigo-light card-player-container" id="youtube-player">
+                  <div class="w3-panel w3-center w3-border">
+                      <h2>Select a playlist</h2>
+                  </div>
+                </div>
+            </div>
+            <div class="w3-card-4 w3-center indigo-light">
+                <p></p>
+                <button id="shuffle-icon" onclick="shufflePlayer()" class="w3-button w3-light-green w3-margin-top"><i class="fa fa-random"></i></button>
+                <p><i>Press to shuffle the videos</i></p>
+            </div>
+        </div>
+
+        <!-- About secion -->
+
+        <div id="about-section" hidden>
+            <header class="w3-container w3-center indigo-light">
+                <h1>About</h1>
+            </header>
+            <div class="w3-panel w3-center w3-border">
+                <h2>Author</h2>
+                <h3>Victor Reiner</h3>
+            </div>
+            <div class="w3-panel w3-center w3-border">
+                <p>You can find more of my proyects in my personal web</p>
+                <p><a>http://victorreiner.com/</a></p>
+            </div>
+        </div>
+
+        <!-- Floating button -->
+        <button onclick="document.getElementById('new-section').style.display='block'" class="w3-button w3-xlarge w3-card-4 w3-circle btn-floating indigo-light-x2">+</button>
+        <!-- modal new section -->
+        <div id="new-section" class="w3-modal">
+            <div class="w3-modal-content w3-card-4">
+                <header class="w3-container indigo">
+                    <span onclick="closeModal()" class="w3-button w3-display-topright indigo-light">x</span>
+                    <h2>New Playlist</h2>
+                </header>
+                <div class="w3-container indigo-dark">
+                    <p></p>
+                    <label class="w3-text-white"><b>Playlist Title</b></label>
+                    <input id="inp_title_playlist" class="w3-input w3-border" type="text">
+                    <p></p>
+                    <label class="w3-text-white"><b>URL</b></label>
+                    <input id="inp_url_playlist" class="w3-input w3-border" type="text">
+                    <p></p>
+                </div>
+                <footer class="w3-container indigo w3-center">
+                    <button onclick="newPlaylist()" class="w3-btn indigo-light" style="width:100%">Add</button>
+                </footer>
+            </div>
+        </div>
+        <div id="container-player-auxiliar" hidden></div>
+        <!-- END PAGE CONTENT -->
+    </div>
     <script>
-
-        //player.setShuffle
-
-        // Función onready
-        document.addEventListener( 'DOMContentLoaded', function () {
-            waitEvent();
-        }, false );
-        // Inicializamos las variables controladoras por defecto
+        const ipc = require('electron').ipcRenderer;
+        var data = [];
+        var newDataItem;
         var isPlaying = false;
         var checkYoutubeReady = false;
+        var isShuffle = false;
+        var isFirstTime = true;
+        //player.setShuffle
         // Cargamos el Iframe con los datos
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/player_api";
@@ -28,57 +253,280 @@
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         // Creamos el reproductor
         var player;
+        var playerAux;
         function onYouTubePlayerAPIReady() {
             checkYoutubeReady = true;
+            if(data.length > 0){
+                console.log('paing');
+                loadPlayer(0);
+            }
         }
+        var list_section = document.getElementById('list-section');
+        var favorites_section = document.getElementById('favorites-section');
+        var player_section = document.getElementById('player-section');
+        var about_section = document.getElementById('about-section');
+
+        var btn_open_fav = document.getElementById('btn-open-fav');
+        var btn_open_list = document.getElementById('btn-open-list');
+        var btn_open_player = document.getElementById('btn-open-player');
+        var btn_open_about = document.getElementById('btn-open-about');
+        // Función onready
+        document.addEventListener( 'DOMContentLoaded', function () {
+            document.getElementById('list-all-containter').innerHTML = '';
+            loadData();
+            waitEvent();
+        }, false );
 
         // Función escucha de eventos de teclado
         function waitEvent() {
             var ipcRenderer = require('electron').ipcRenderer;
             ipcRenderer.once('invokeKeyboardAction', function(event, response){
-                switch (response) {
-                  case 'MediaPlayPause':
-                    isPlaying ? player.pauseVideo() : player.playVideo();
-                    isPlaying = !isPlaying;
-                    break;
-                  case 'MediaStop':
-                    player.stopVideo();
-                    isPlaying = false;
-                    break;
-                  case 'MediaPreviousTrack':
-                    player.previousVideo();
-                    isPlaying = true;
-                    break;
-                  case 'MediaNextTrack':
-                    player.nextVideo();
-                    isPlaying = true;
-                    break;
-                }
-                waitEvent();
+              try{
+                  switch (response) {
+                    case 'MediaPlayPause':
+                      isPlaying ? player.pauseVideo() : player.playVideo();
+                      isPlaying = !isPlaying;
+                      break;
+                    case 'MediaStop':
+                      player.stopVideo();
+                      isPlaying = false;
+                      break;
+                    case 'MediaPreviousTrack':
+                      player.previousVideo();
+                      isPlaying = true;
+                      break;
+                    case 'MediaNextTrack':
+                      player.nextVideo();
+                      isPlaying = true;
+                      break;
+                  }
+                  waitEvent();
+              }catch(e){
+                  waitEvent();
+              }
+
             });
         }
 
-        var btn_load = document.getElementById('btn-load');
-        btn_load.addEventListener('click', function (event) {
-            var inp_url_playlist = document.getElementById('inp-url-playlist');
-            var strID = getParameterByName("list", inp_url_playlist.value);
-            console.log(strID);
-            if(checkYoutubeReady){
-              player = new YT.Player('youtube-player', {
-                  height: '360',
-                  width: '640',
+        //Funcion recuperar datos
+        function loadData(){
+            // In renderer process (web page).
+            ipc.send('async-load-data', { msg: 'my message' });
+            ipc.on('async-load-data-reply', (event, arg) => {
+              data = arg;
+              loadPlaylists();
+            });
+        }
+        function loadFavorites(){
+          var container = document.getElementById('favorites-all-containter');
+          while (container.firstChild) {
+              container.removeChild(container.firstChild);
+          }
+          data.forEach(createFavItemList);
+        }
+
+        function createFavItemList(item, index){
+            if(item.favorite == 1){
+                var container = document.getElementById('favorites-all-containter');
+
+                var t = document.querySelector('#item-list-template').content;
+                // Asigamos los valores
+                t.querySelector('.w3-card-4').setAttribute('id', 'item-fav-list-' + index);
+                t.querySelector('#item-title').innerText = item.title;
+                t.querySelector('img').src = item.thumb;
+                t.querySelector('img').setAttribute("alt", item.title);
+                t.querySelector('#item-star').className = "fa fa-star";
+
+                // Asignación de las funciones a los botones
+                t.querySelector('#item-btn-fav').setAttribute("onclick", 'switchFavFavorite(' + index + ')');
+                t.querySelector('#item-btn-play').setAttribute("onclick", 'startPlaylist(' + index + ')');
+                t.querySelector('#item-btn-remove').setAttribute("onclick", 'removeFavPlaylist(' + index + ')');
+
+
+                var clone = document.importNode(t, true);
+                container.appendChild(clone);
+            }
+
+        }
+
+        function switchFavFavorite(index){
+          var item = document.getElementById('item-fav-list-' + index);
+
+          if(data[index].favorite == 0){
+              data[index].favorite = 1;
+              item.querySelector('#item-star').className = "fa fa-star";
+          }else{
+              data[index].favorite = 0;
+              item.querySelector('#item-star').className = "fa fa-star-o";
+          }
+          saveData();
+          item.remove();
+        }
+
+        function removeFavPlaylist(index){
+            var item = document.getElementById('item-fav-list-' + index);
+            data.splice(index, 1);
+            saveData();
+            open_favorites();
+        }
+
+        function loadPlaylists(){
+            var container = document.getElementById('list-all-containter');
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
+            data.forEach(createItemList);
+        }
+
+        function createItemList(item, index){
+            var container = document.getElementById('list-all-containter');
+
+            var t = document.querySelector('#item-list-template').content;
+            // Asigamos los valores
+            t.querySelector('.w3-card-4').setAttribute('id', 'item-list-' + index);
+            t.querySelector('#item-title').innerText = item.title;
+            t.querySelector('img').src = item.thumb;
+            t.querySelector('img').setAttribute("alt", item.title);
+            if(item.favorite == 1){
+                t.querySelector('#item-star').className = "fa fa-star";
+            }else{
+                t.querySelector('#item-star').className = "fa fa-star-o";
+            }
+            t.querySelector('#item-btn-fav').setAttribute("onclick", 'switchFavorite(' + index + ')');
+            t.querySelector('#item-btn-play').setAttribute("onclick", 'startPlaylist(' + index + ')');
+            t.querySelector('#item-btn-remove').setAttribute("onclick", 'removePlaylist(' + index + ')');
+
+
+            var clone = document.importNode(t, true);
+            container.appendChild(clone);
+        }
+
+        function switchFavorite(index){
+          var item = document.getElementById('item-list-' + index);
+
+          if(data[index].favorite == 0){
+              data[index].favorite = 1;
+              item.querySelector('#item-star').className = "fa fa-star";
+          }else{
+              data[index].favorite = 0;
+              item.querySelector('#item-star').className = "fa fa-star-o";
+          }
+          saveData();
+        }
+        function startPlaylist(index){
+            isFirstTime = false;
+
+            loadPlayer(index);
+            open_player();
+
+        }
+        function removePlaylist(index){
+            var item = document.getElementById('item-list-' + index);
+            console.log(index);
+            data.splice(index, 1);
+            saveData();
+            open_list();
+        }
+        function newPlaylist(){
+            newDataItem = {'title': '',
+                           'url' : '',
+                           'thumb' : '',
+                           'favorite': 0
+                          };
+            var title = document.getElementById('inp_title_playlist').value;
+            var url = document.getElementById('inp_url_playlist').value;
+            newDataItem.title = title;
+            newDataItem.url = url;
+            loadAuxPlayer(url);
+        }
+
+        function loadPlayer(index){
+          var strID = getParameterByName("list", data[index].url);
+          var youtube_player_container = document.getElementById('youtube-player');
+          // Elimino el anterior reproductor
+          while (youtube_player_container.firstChild) {
+              youtube_player_container.removeChild(youtube_player_container.firstChild);
+          }
+          // Creo y preparo el futuro reproductor
+          var div_player = document.createElement('div');
+          div_player.setAttribute('id','sub-youtube-player');
+          youtube_player_container.appendChild(div_player);
+          player = undefined;
+          if(checkYoutubeReady){
+              player = new YT.Player('sub-youtube-player', {
+                  height: '315',
+                  width: '100%',
                   playerVars:
                   {
                       listType:'playlist',
                       list: strID
+                  },
+                  events: {
+                      'onReady': () => {
+                        if(isFirstTime){
+                            isFirstTime = false;
+                        }else{
+                            player.playVideo();
+                            isPlaying = true;
+                        }
+
+                        player.setShuffle(isShuffle);
+                        document.getElementById('title_player').innerText = data[index].title;
+                      }
                   }
+              });
+
+          }else{
+              //mostrar alerta no estas preparado
+          }
+        }
+
+        function loadAuxPlayer(url){
+            var strID = getParameterByName("list", url);
+            var player_auxiliar_container = document.getElementById('container-player-auxiliar');
+            // Elimino el anterior reproductor
+            while (player_auxiliar_container.firstChild) {
+                player_auxiliar_container.removeChild(player_auxiliar_container.firstChild);
+            }
+            // Creo y preparo el futuro reproductor
+            var div_player = document.createElement('div');
+            div_player.setAttribute('id','player-auxiliar');
+            player_auxiliar_container.appendChild(div_player);
+            playerAux = undefined;
+            console.log(strID);
+            if(checkYoutubeReady){
+                playerAux = new YT.Player('player-auxiliar', {
+                    height: '315',
+                    width: '100%',
+                    playerVars:
+                    {
+                        listType:'playlist',
+                        list: strID
+                    },
+                    events: {
+                        'onReady': saveNewPlaylist,
+                    }
                 });
             }else{
                 //mostrar alerta no estas preparado
             }
-        });
+        }
 
-        // Funcion auxiliar para obtener queryparams
+        // Guarda la variable data
+        function saveNewPlaylist(){
+            newDataItem.thumb = 'http://img.youtube.com/vi/' + playerAux.getPlaylist()[playerAux.getPlaylistIndex()] + '/0.jpg';
+            console.log('thumb: ' + newDataItem.thumb);
+            data.push(newDataItem);
+            saveData();
+            open_list();
+            closeModal();
+
+        }
+
+        function saveData(){
+          ipc.send('async-save-data', data);
+        }
+        // Función para sacar un parametro de un enlace
         function getParameterByName(name, url) {
             if (!url) {
                 url = window.location.href;
@@ -90,6 +538,28 @@
             if (!results[2]) return '';
                 return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
+
+        function closeModal(){
+            document.getElementById('new-section').style.display='none';
+            document.getElementById('inp_title_playlist').value = '';
+            document.getElementById('inp_url_playlist').value = '';
+        }
+
+        function shufflePlayer(){
+            var btn_shuffle = document.getElementById('shuffle-icon');
+            isShuffle = !isShuffle;
+            try{
+                player.setShuffle(isShuffle);
+            }catch(e){
+                //nada que ver
+            }
+            if(isShuffle){
+                btn_shuffle.className = 'w3-button w3-margin-top w3-red';
+            }else{
+                btn_shuffle.className = 'w3-button w3-margin-top w3-light-green';
+            }
+        }
     </script>
-  </body>
+</body>
+
 </html>
