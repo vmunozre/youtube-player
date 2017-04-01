@@ -8,10 +8,11 @@ Reproductor de listas de reproducción de Youtube. Se puede almacenar, añadir a
 Puedes ver más de mis proyectos en mi [página web](http://victorreiner.com).
 ## Descarga
 ### Windows
-  Puedes descargar la versión actual para Windows [aquí](https://github.com/vmunozre/youtube-player/raw/master/release-builds/youtube-player-win32-ia32.rar).
+Puedes descargar la versión actual para Windows [aquí](https://github.com/vmunozre/youtube-player/raw/master/release-builds/youtube-player-win32-ia32.rar).
 
 ### Linux
-    Puedes descargar la versión actual para linux [aquí](https://github.com/vmunozre/youtube-player/raw/master/release-builds/youtube-player-linux-x64.zip).
+Puedes descargar la versión actual para linux [aquí](https://github.com/vmunozre/youtube-player/raw/master/release-builds/youtube-player-linux-x64.zip).
+
 ## Building
 
 Es necesario tener instalado [Node.js](https://nodejs.org) en tu ordenador para compilar la aplicación.
